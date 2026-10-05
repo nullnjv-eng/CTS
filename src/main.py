@@ -44,13 +44,13 @@ def Delete_universal(list_name, key):
 
 
 def Get_all_writings_universal(list_name):
-    return list_name
+    return (list_name)
 
 
 def Get_one_writing_by_id_universal(list_name, key):
     for i in range(len(list_name)):
         if list_name[i][0] == key:
-            return list_name[i]
+            return (list_name[i])
 
 
 def additional_relating_algebra():
@@ -83,14 +83,21 @@ def additional_relating_algebra():
     for i in range(len(joined_strings)):
         a = joined_strings[i][8] + " " + joined_strings[i][4]
         b = " " + joined_strings[i][2]
-        return a + b
+        return (a + b)
 
 
+logs = []
+
+    
 while True:
-    command = input()
-    try:
-        exec(command)
-    except TypeError:
-        print('Соблюдайте количество аргументов!')
-    except NameError:
-        print('Возьмите строку в ковычки!')
+    request = input()
+    logs.append(request)
+    code = request[1]
+    json_bytes = request[6:]
+    json = json_bytes.decode(encodind='utf-8')
+    linar = list(json.items())
+    func = linar[0]
+    args = linar[1]
+    command = func + '(' + args + ')'
+    print(bytes(len(exec(command)), 'utf-8') + code +  bytes(exec(command), 'utf-8'))
+    
