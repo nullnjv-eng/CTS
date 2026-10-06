@@ -5,7 +5,7 @@ Tasks = []
 Sessions = []
 
 
-def Create_Completion(
+def create_completion(
     key: int,
     datetime: int,
     response: str,
@@ -15,8 +15,8 @@ def Create_Completion(
 ):
     Completions.append([key, datetime, response, stage, error, task])
 
-    
-def Create_Task(
+
+def create_task(
     key: int,
     datetime: int,
     parameter: str,
@@ -27,7 +27,7 @@ def Create_Task(
     Tasks.append([key, datetime, parameter, session, description, done])
 
 
-def Create_Session(
+def create_session(
     key: int,
     datetime: int,
     ip: str,
@@ -37,36 +37,29 @@ def Create_Session(
     Sessions.append([key, datetime, ip, locale, user_agent])
 
 
-def Delete_universal(list_name, key):
+def delete_universal(list_name, key):
     for i in range(len(list_name)):
         if list_name[i][0] == key:
             list_name.pop(i)
 
 
-def Get_all_writings_universal(list_name):
+def get_all_writings_universal(list_name):
     return (list_name)
 
 
-def Get_one_writing_by_id_universal(list_name, key):
+def get_one_writing_by_id_universal(list_name, key):
     for i in range(len(list_name)):
         if list_name[i][0] == key:
             return (list_name[i])
 
 
-def additional_relating_algebra():
-    passed_selection_completions_keys = []
-    for i in range(len(Completions)):
-        if Completions[i][1] >= time.time() - 7 * 60:
-            passed_selection_completions_keys.append(Completions[i][0])
-    tasks_keys = []
-    for i in range(len(Tasks)):
-        tasks_keys.append(Tasks[i][0])
-    selected_completions_tasks = []
-    for i in range(len(passed_selection_completions_keys)):
-        for j in range(len(Completions)):
-            if passed_selection_completions_keys[i] == Completions[j][0]:
-                selected_completions_tasks.append(Completions[j][5])
-    joined_strings = []
+passed_selection_completions_keys = []
+tasks_keys = []
+selected_completions_tasks = []
+joined_strings = []
+
+
+def sub_a():
     for i in range(len(tasks_keys)):
         for j in range(len(selected_completions_tasks)):
             if tasks_keys[i] == selected_completions_tasks[j]:
@@ -80,24 +73,29 @@ def additional_relating_algebra():
                     if Completions[jj][5] == selected_completions_tasks[j]:
                         s2 = Completions[jj]
                 joined_strings.append(s1 + s2)
+
+
+def additional_relating_algebra():
+    for i in range(len(Completions)):
+        if Completions[i][1] >= time.time() - 7 * 60:
+            passed_selection_completions_keys.append(Completions[i][0])
+    for i in range(len(Tasks)):
+        tasks_keys.append(Tasks[i][0])
+    for i in range(len(passed_selection_completions_keys)):
+        for j in range(len(Completions)):
+            if passed_selection_completions_keys[i] == Completions[j][0]:
+                selected_completions_tasks.append(Completions[j][5])
+    sub_a()
     for i in range(len(joined_strings)):
         a = joined_strings[i][8] + " " + joined_strings[i][4]
         b = " " + joined_strings[i][2]
-        return (a + b)
+        print (a + b)
+    passed_selection_completions_keys = []
+    tasks_keys = []
+    selected_completions_tasks = []
+    joined_strings = []
 
 
-logs = []
-
-    
 while True:
-    request = input()
-    logs.append(request)
-    code = request[1]
-    json_bytes = request[6:]
-    json = json_bytes.decode(encodind='utf-8')
-    linar = list(json.items())
-    func = linar[0]
-    args = linar[1]
-    command = func + '(' + args + ')'
-    print(bytes(len(exec(command)), 'utf-8') + code +  bytes(exec(command), 'utf-8'))
-    
+    command = input()
+    exec(command)
